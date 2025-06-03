@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-This is Mairuis.
+This is Maries.
 
 A passionate developer with 6+ years of experience specializing in Game Development, mainly in the Java ecosystem. But others are also not bad. 🤗
 
