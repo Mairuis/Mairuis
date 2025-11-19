@@ -2,7 +2,7 @@
 
 This is Maries.
 
-A passionate developer with 6+ years of experience specializing in Game Development & LLM Apps, mainly in the Java ecosystem. But others are also not bad. 🤗
+A passionate developer with 6+ years of experience specializing in Game Development & LLM Apps, mainly in the Java ecosystem. I am also open to exploring other technologies. 🤗
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Mairuis/Mairuis/output/github-contribution-grid-snake-dark.svg">
