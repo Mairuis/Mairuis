@@ -2,6 +2,8 @@
 
 This is Maries.
 
+**GameJAM Player** · [Twitter / X](https://x.com/promethurs)
+
 A passionate developer with 6+ years of experience specializing in Game Development & LLM Apps, mainly in the Java ecosystem. But others are also not bad. 🤗
 
 <picture>
