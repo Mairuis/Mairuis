@@ -23,7 +23,7 @@ GameJAM Player is a lightweight sandbox I use to iterate on jam-sized game ideas
 
 You can try a tiny HTML playground that mirrors the feel of my jam prototypes right from the browser:
 
-- [Play the GameJAM Player mini-demo](./gamejam-player.html)
+- [Play the GameJAM Player mini-demo](https://mairuis.github.io/gamejam-player.html)
 
 ## Connect
 
