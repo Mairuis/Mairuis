@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameJAM Player Mini Demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        background-color: #05090f;
+        color: #f4faff;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      main {
+        width: min(560px, 92vw);
+        padding: 24px;
+        border-radius: 16px;
+        background: radial-gradient(circle at top, #0a1c2f, #03060c 65%);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 1.6rem;
+        letter-spacing: 0.02em;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+      canvas {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #020306;
+        display: block;
+      }
+      #hud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.95rem;
+      }
+      .stat {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-weight: 600;
+      }
+      button {
+        margin-left: auto;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(120deg, #2bd9ff, #3df79a);
+        color: #04101c;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      small {
+        display: block;
+        margin-top: 8px;
+        opacity: 0.7;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>GameJAM Player Mini Demo</h1>
+      <p>
+        Dash around the arena and scoop up energy orbs before the 30-second loop
+        expires. Use <strong>WASD</strong> or the <strong>arrow keys</strong>;
+        tap <strong>R</strong> or the button to restart. This mirrors the quick
+        feel checks I do before a jam submission.
+      </p>
+      <canvas id="game" width="520" height="320"></canvas>
+      <div id="hud">
+        <div class="stat">Score: <span id="score">0</span></div>
+        <div class="stat">Time: <span id="time">30.0</span>s</div>
+        <button id="reset">Start Run</button>
+      </div>
+      <small>Built with vanilla JS to keep the prototype footprint tiny.</small>
+    </main>
+    <script>
+      const canvas = document.getElementById("game");
+      const ctx = canvas.getContext("2d");
+      const scoreEl = document.getElementById("score");
+      const timeEl = document.getElementById("time");
+      const resetBtn = document.getElementById("reset");
+
+      const player = { x: canvas.width / 2, y: canvas.height / 2, size: 18 };
+      const orb = { x: 80, y: 80, size: 10 };
+      const keys = { up: false, down: false, left: false, right: false };
+
+      let score = 0;
+      let timeLeft = 30;
+      let playing = false;
+      let lastFrame = 0;
+
+      function spawnOrb() {
+        const margin = 20;
+        orb.x = margin + Math.random() * (canvas.width - margin * 2);
+        orb.y = margin + Math.random() * (canvas.height - margin * 2);
+      }
+
+      function resetRun() {
+        score = 0;
+        timeLeft = 30;
+        playing = true;
+        player.x = canvas.width / 2;
+        player.y = canvas.height / 2;
+        spawnOrb();
+        lastFrame = performance.now();
+        resetBtn.textContent = "Restart";
+      }
+
+      function update(dt) {
+        const speed = 180;
+        if (keys.up) player.y -= speed * dt;
+        if (keys.down) player.y += speed * dt;
+        if (keys.left) player.x -= speed * dt;
+        if (keys.right) player.x += speed * dt;
+
+        player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
+        player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
+
+        const dx = player.x - orb.x;
+        const dy = player.y - orb.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < player.size + orb.size) {
+          score += 1;
+          spawnOrb();
+        }
+
+        timeLeft = Math.max(0, timeLeft - dt);
+        if (timeLeft === 0) playing = false;
+      }
+
+      function drawGrid() {
+        ctx.save();
+        ctx.strokeStyle = "rgba(255,255,255,0.05)";
+        ctx.lineWidth = 1;
+        for (let x = 0; x < canvas.width; x += 32) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += 32) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#2bd9ff";
+        ctx.fillStyle = "#2bd9ff";
+        ctx.beginPath();
+        ctx.arc(orb.x, orb.y, orb.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = "#3df79a";
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function loop(timestamp) {
+        const dt = (timestamp - lastFrame) / 1000;
+        lastFrame = timestamp;
+        if (playing) update(dt);
+        render();
+        scoreEl.textContent = score;
+        timeEl.textContent = timeLeft.toFixed(1);
+        requestAnimationFrame(loop);
+      }
+
+      function setKey(key, pressed) {
+        if (key === "ArrowUp" || key === "w") keys.up = pressed;
+        if (key === "ArrowDown" || key === "s") keys.down = pressed;
+        if (key === "ArrowLeft" || key === "a") keys.left = pressed;
+        if (key === "ArrowRight" || key === "d") keys.right = pressed;
+      }
+
+      window.addEventListener("keydown", (event) => {
+        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "a", "s", "d"].includes(event.key)) {
+          event.preventDefault();
+        }
+        if (event.key === "r") resetRun();
+        setKey(event.key, true);
+      });
+
+      window.addEventListener("keyup", (event) => setKey(event.key, false));
+      resetBtn.addEventListener("click", resetRun);
+
+      lastFrame = performance.now();
+      requestAnimationFrame(loop);
+    </script>
+  </body>
+</html>
