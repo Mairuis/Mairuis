@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulsar Dash · GameJAM micro demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">GameJAM micro demo</p>
+        <h1>⚡ Pulsar Dash</h1>
+        <p>
+          Dodge fatigue, collect energy orbs, and build the highest combo you
+          can before the clock winds down. It is a mini slice of how I ideate,
+          scope, and polish in 48-hour jams.
+        </p>
+        <div class="cta">
+          <button type="button" id="startGame" class="btn">
+            Start run
+          </button>
+          <div class="legend" aria-live="polite">
+            <span>⬆⬇⬅➡ / WASD · move</span>
+            <span>R · reset instantly</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="status-card" aria-live="polite">
+        <div>
+          <p>Score</p>
+          <strong id="score">0</strong>
+        </div>
+        <div>
+          <p>Combo</p>
+          <strong id="streak">x0</strong>
+        </div>
+        <div>
+          <p>Time</p>
+          <strong id="timer">45s</strong>
+        </div>
+      </section>
+
+      <section class="arena-wrapper">
+        <div
+          id="arena"
+          class="arena"
+          tabindex="0"
+          aria-label="Pulsar Dash play area"
+        >
+          <div
+            id="player"
+            class="player"
+            role="img"
+            aria-label="Player avatar"
+          ></div>
+          <div id="orb" class="orb pulse" role="img" aria-label="Energy orb"></div>
+        </div>
+        <p class="callout" id="callout">
+          Collect as many energy orbs as you can before the timer hits zero.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <p>Tip: keep a rhythm—small, precise moves beat frantic button mashing.</p>
+      </footer>
+    </main>
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
