@@ -26,7 +26,3 @@ I'm Maries — a curious builder who loves crafting immersive games and LLM-powe
 | <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mairuis&layout=compact&title_color=359697&icon_color=359697&hide_border=true&hide=HTML,CSS,JavaScript,CMake,Jupyter%20Notebook" style="border-radius:18px;box-shadow:0 8px 22px rgba(15,23,42,0.25);" /> |
 | ------------- |
 
-### 📬 Connect
-- 🐦 Twitter / X: [@promethurs](https://x.com/promethurs)
-- 💼 LinkedIn: [linkedin.com/in/mairuis](https://www.linkedin.com/in/mairuis/)
-- 🌐 Portfolio: [mairuis.dev](https://mairuis.dev)
