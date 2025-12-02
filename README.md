@@ -11,12 +11,6 @@ I'm Maries — a curious builder who loves crafting immersive games and LLM-powe
 - 🧩 Built a reusable Jam starter kit (scene loader, input maps, dialogue DSL) so we iterate on mechanics instead of boilerplate.
 - 🎨 Obsessed with polish: cinematic camera sweeps, juicy particle accents, and accessibility toggles make every entry shine.
 
-### ⚙️ What I Love Working With
-- ☕ Java & Kotlin for gameplay services and live ops tooling
-- 🐍 Python for LLM agents, prompt pipelines, and evaluation harnesses
-- 🕹️ Unity, Godot, and bespoke engines for tactile interactions
-- ☁️ AWS/GCP for scalable scoring boards and Jam backend infra
-
 <picture style="display:block;margin:1.5rem auto;max-width:480px;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(15,23,42,0.35);">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Mairuis/Mairuis/output/github-contribution-grid-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Mairuis/Mairuis/output/github-contribution-grid-snake.svg">
